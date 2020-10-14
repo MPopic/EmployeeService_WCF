@@ -1,0 +1,10 @@
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\bin\Debug\EmployeeServiceHost.exe.config
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\bin\Debug\EmployeeServiceHost.exe
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\bin\Debug\EmployeeServiceHost.pdb
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\obj\Debug\EmployeeServiceHost.csprojAssemblyReference.cache
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\obj\Debug\EmployeeServiceHost.csproj.CoreCompileInputs.cache
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\obj\Debug\EmployeeServiceHost.exe
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\obj\Debug\EmployeeServiceHost.pdb
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\bin\Debug\EmployeeService.dll
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\bin\Debug\EmployeeService.pdb
+C:\Users\Marinko\Source\Repos\WCF\EmployeeService\EmployeeServiceHost\obj\Debug\EmployeeServiceHost.csproj.CopyComplete
