@@ -69,10 +69,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Connected Services\EmployeeService\Client.EmployeeService.Employee.datasource">
+    <Content Include="WebForm1.aspx" />
+    <Content Include="Connected Services\EmployeeService\Client.EmployeeService.EmployeeInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <Content Include="WebForm1.aspx" />
+    <Content Include="Connected Services\EmployeeService\Client.EmployeeService.EmployeeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\EmployeeService\Client.EmployeeService.SaveEmployeeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\EmployeeService\EmployeeService.wsdl" />
     <None Include="Connected Services\EmployeeService\item.disco" />
     <None Include="Connected Services\EmployeeService\configuration91.svcinfo" />

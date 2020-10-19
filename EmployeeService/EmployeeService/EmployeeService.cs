@@ -13,9 +13,9 @@ namespace EmployeeService
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "EmployeeService" in both code and config file together.
     public class EmployeeService : IEmployeeService
     {
-        public Employee GetEmployee(int Id)
+        public EmployeeInfo GetEmployee(EmployeeRequest request)
         {
-            Employee employee = new Employee();
+            Employee employee = null;
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -23,22 +23,43 @@ namespace EmployeeService
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter parameterId = new SqlParameter();
                 parameterId.ParameterName = "@Id";
-                parameterId.Value = Id;
+                parameterId.Value = request.EmployeeId;
                 cmd.Parameters.Add(parameterId);
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    employee.Id = Convert.ToInt32(reader["Id"]);
-                    employee.Name = reader["Name"].ToString();
-                    employee.Gender = reader["Gender"].ToString();
-                    employee.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
+                    if ((EmployeeType)reader["EmployeeType"] == EmployeeType.FullTimeEmployee)
+                    {
+                        employee = new FullTimeEmployee
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString(),
+                            Gender = reader["Gender"].ToString(),
+                            DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]),
+                            Type = EmployeeType.FullTimeEmployee,
+                            AnnualSalary = Convert.ToInt32(reader["AnnualSalary"])
+                        };
+                    }
+                    else
+                    {
+                        employee = new PartTimeEmployee
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString(),
+                            Gender = reader["Gender"].ToString(),
+                            DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]),
+                            Type = EmployeeType.PartTimeEmployee,
+                            HourlyPay = Convert.ToInt32(reader["HourlyPay"]),
+                            HoursWorked = Convert.ToInt32(reader["HoursWorked"]),
+                        };
+                    }
                 }
             }
-            return employee;
+            return new EmployeeInfo(employee);
         }
 
-        public void SaveEmployee(Employee employee)
+        public void SaveEmployee(EmployeeInfo employee)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
@@ -69,9 +90,42 @@ namespace EmployeeService
                 SqlParameter parameterDateOfBirth = new SqlParameter
                 {
                     ParameterName = "@DateOfBirth",
-                    Value = employee.DateOfBirth
+                    Value = employee.DOB
                 };
                 cmd.Parameters.Add(parameterDateOfBirth);
+
+                SqlParameter parameterEmployeeType = new SqlParameter
+                {
+                    ParameterName = "@EmployeeType",
+                    Value = employee.Type
+                };
+                cmd.Parameters.Add(parameterEmployeeType);
+
+                if (employee.Type == EmployeeType.FullTimeEmployee)
+                {
+                    SqlParameter parameterAnnualSalary = new SqlParameter
+                    {
+                        ParameterName = "@AnnualSalary",
+                        Value = employee.AnnualSalary
+                    };
+                    cmd.Parameters.Add(parameterAnnualSalary);
+                }
+                else
+                {
+                    SqlParameter parameterHourlyPay = new SqlParameter
+                    {
+                        ParameterName = "@HourlyPay",
+                        Value = employee.HourlyPay,
+                    };
+                    cmd.Parameters.Add(parameterHourlyPay);
+
+                    SqlParameter parameterHoursWorked = new SqlParameter
+                    {
+                        ParameterName = "@HoursWorked",
+                        Value = employee.HoursWorked
+                    };
+                    cmd.Parameters.Add(parameterHoursWorked);
+                }
 
                 con.Open();
                 cmd.ExecuteNonQuery();

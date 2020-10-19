@@ -10,100 +10,17 @@
 
 namespace Client.EmployeeService {
     using System.Runtime.Serialization;
-    using System;
     
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Employee", Namespace="http://schemas.datacontract.org/2004/07/EmployeeService")]
-    [System.SerializableAttribute()]
-    public partial class Employee : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeType", Namespace="http://schemas.datacontract.org/2004/07/EmployeeService")]
+    public enum EmployeeType : int {
         
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        FullTimeEmployee = 1,
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime DateOfBirthField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string GenderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime DateOfBirth {
-            get {
-                return this.DateOfBirthField;
-            }
-            set {
-                if ((this.DateOfBirthField.Equals(value) != true)) {
-                    this.DateOfBirthField = value;
-                    this.RaisePropertyChanged("DateOfBirth");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Gender {
-            get {
-                return this.GenderField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.GenderField, value) != true)) {
-                    this.GenderField = value;
-                    this.RaisePropertyChanged("Gender");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PartTimeEmployee = 2,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -111,16 +28,92 @@ namespace Client.EmployeeService {
     public interface IEmployeeService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetEmployee", ReplyAction="http://tempuri.org/IEmployeeService/GetEmployeeResponse")]
-        Client.EmployeeService.Employee GetEmployee(int Id);
+        Client.EmployeeService.EmployeeInfo GetEmployee(Client.EmployeeService.EmployeeRequest request);
         
+        // CODEGEN: Generating message contract since the operation has multiple return values.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetEmployee", ReplyAction="http://tempuri.org/IEmployeeService/GetEmployeeResponse")]
-        System.Threading.Tasks.Task<Client.EmployeeService.Employee> GetEmployeeAsync(int Id);
+        System.Threading.Tasks.Task<Client.EmployeeService.EmployeeInfo> GetEmployeeAsync(Client.EmployeeService.EmployeeRequest request);
+        
+        // CODEGEN: Generating message contract since the operation SaveEmployee is neither RPC nor document wrapped.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/SaveEmployee", ReplyAction="http://tempuri.org/IEmployeeService/SaveEmployeeResponse")]
+        Client.EmployeeService.SaveEmployeeResponse SaveEmployee(Client.EmployeeService.EmployeeInfo request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/SaveEmployee", ReplyAction="http://tempuri.org/IEmployeeService/SaveEmployeeResponse")]
-        void SaveEmployee(Client.EmployeeService.Employee Employee);
+        System.Threading.Tasks.Task<Client.EmployeeService.SaveEmployeeResponse> SaveEmployeeAsync(Client.EmployeeService.EmployeeInfo request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EmployeeRequestObject", WrapperNamespace="http://MyCompany.com/Employee", IsWrapped=true)]
+    public partial class EmployeeRequest {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/SaveEmployee", ReplyAction="http://tempuri.org/IEmployeeService/SaveEmployeeResponse")]
-        System.Threading.Tasks.Task SaveEmployeeAsync(Client.EmployeeService.Employee Employee);
+        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://MyCompany.com/Employee")]
+        public string LicenseKey;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=0)]
+        public int EmployeeId;
+        
+        public EmployeeRequest() {
+        }
+        
+        public EmployeeRequest(string LicenseKey, int EmployeeId) {
+            this.LicenseKey = LicenseKey;
+            this.EmployeeId = EmployeeId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="EmployeeInfoObject", WrapperNamespace="http://MyCompany.com/Employee", IsWrapped=true)]
+    public partial class EmployeeInfo {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=0)]
+        public int Id;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=1)]
+        public string Name;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=2)]
+        public string Gender;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=3)]
+        public System.DateTime DOB;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=4)]
+        public Client.EmployeeService.EmployeeType Type;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=5)]
+        public int AnnualSalary;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=6)]
+        public int HourlyPay;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MyCompany.com/Employee", Order=7)]
+        public int HoursWorked;
+        
+        public EmployeeInfo() {
+        }
+        
+        public EmployeeInfo(int Id, string Name, string Gender, System.DateTime DOB, Client.EmployeeService.EmployeeType Type, int AnnualSalary, int HourlyPay, int HoursWorked) {
+            this.Id = Id;
+            this.Name = Name;
+            this.Gender = Gender;
+            this.DOB = DOB;
+            this.Type = Type;
+            this.AnnualSalary = AnnualSalary;
+            this.HourlyPay = HourlyPay;
+            this.HoursWorked = HoursWorked;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SaveEmployeeResponse {
+        
+        public SaveEmployeeResponse() {
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -150,20 +143,64 @@ namespace Client.EmployeeService {
                 base(binding, remoteAddress) {
         }
         
-        public Client.EmployeeService.Employee GetEmployee(int Id) {
-            return base.Channel.GetEmployee(Id);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Client.EmployeeService.EmployeeInfo Client.EmployeeService.IEmployeeService.GetEmployee(Client.EmployeeService.EmployeeRequest request) {
+            return base.Channel.GetEmployee(request);
         }
         
-        public System.Threading.Tasks.Task<Client.EmployeeService.Employee> GetEmployeeAsync(int Id) {
-            return base.Channel.GetEmployeeAsync(Id);
+        public int GetEmployee(string LicenseKey, int EmployeeId, out string Name, out string Gender, out System.DateTime DOB, out Client.EmployeeService.EmployeeType Type, out int AnnualSalary, out int HourlyPay, out int HoursWorked) {
+            Client.EmployeeService.EmployeeRequest inValue = new Client.EmployeeService.EmployeeRequest();
+            inValue.LicenseKey = LicenseKey;
+            inValue.EmployeeId = EmployeeId;
+            Client.EmployeeService.EmployeeInfo retVal = ((Client.EmployeeService.IEmployeeService)(this)).GetEmployee(inValue);
+            Name = retVal.Name;
+            Gender = retVal.Gender;
+            DOB = retVal.DOB;
+            Type = retVal.Type;
+            AnnualSalary = retVal.AnnualSalary;
+            HourlyPay = retVal.HourlyPay;
+            HoursWorked = retVal.HoursWorked;
+            return retVal.Id;
         }
         
-        public void SaveEmployee(Client.EmployeeService.Employee Employee) {
-            base.Channel.SaveEmployee(Employee);
+        public System.Threading.Tasks.Task<Client.EmployeeService.EmployeeInfo> GetEmployeeAsync(Client.EmployeeService.EmployeeRequest request) {
+            return base.Channel.GetEmployeeAsync(request);
         }
         
-        public System.Threading.Tasks.Task SaveEmployeeAsync(Client.EmployeeService.Employee Employee) {
-            return base.Channel.SaveEmployeeAsync(Employee);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Client.EmployeeService.SaveEmployeeResponse Client.EmployeeService.IEmployeeService.SaveEmployee(Client.EmployeeService.EmployeeInfo request) {
+            return base.Channel.SaveEmployee(request);
+        }
+        
+        public void SaveEmployee(int Id, string Name, string Gender, System.DateTime DOB, Client.EmployeeService.EmployeeType Type, int AnnualSalary, int HourlyPay, int HoursWorked) {
+            Client.EmployeeService.EmployeeInfo inValue = new Client.EmployeeService.EmployeeInfo();
+            inValue.Id = Id;
+            inValue.Name = Name;
+            inValue.Gender = Gender;
+            inValue.DOB = DOB;
+            inValue.Type = Type;
+            inValue.AnnualSalary = AnnualSalary;
+            inValue.HourlyPay = HourlyPay;
+            inValue.HoursWorked = HoursWorked;
+            Client.EmployeeService.SaveEmployeeResponse retVal = ((Client.EmployeeService.IEmployeeService)(this)).SaveEmployee(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Client.EmployeeService.SaveEmployeeResponse> Client.EmployeeService.IEmployeeService.SaveEmployeeAsync(Client.EmployeeService.EmployeeInfo request) {
+            return base.Channel.SaveEmployeeAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Client.EmployeeService.SaveEmployeeResponse> SaveEmployeeAsync(int Id, string Name, string Gender, System.DateTime DOB, Client.EmployeeService.EmployeeType Type, int AnnualSalary, int HourlyPay, int HoursWorked) {
+            Client.EmployeeService.EmployeeInfo inValue = new Client.EmployeeService.EmployeeInfo();
+            inValue.Id = Id;
+            inValue.Name = Name;
+            inValue.Gender = Gender;
+            inValue.DOB = DOB;
+            inValue.Type = Type;
+            inValue.AnnualSalary = AnnualSalary;
+            inValue.HourlyPay = HourlyPay;
+            inValue.HoursWorked = HoursWorked;
+            return ((Client.EmployeeService.IEmployeeService)(this)).SaveEmployeeAsync(inValue);
         }
     }
 }
